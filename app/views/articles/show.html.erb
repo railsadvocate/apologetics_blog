@@ -1,11 +1,20 @@
-<h1>Showing selected article</h1>
+<div class='container articles-show-pageContent'>
+  <h2 class='page-header'>Showing selected article</h2>
 
-<p>
-  title: <%= @article.title %>
-</p>
-<p>
-  description: <%= @article.description %>
-</p>
+  <div class='panel panel-info'>
+    <div class="panel-heading articles-show-articleTitle">
+      <%= @article.title %>
+    </div>
+    <div class="panel-body">
+      <article class="articles-show-articleBody">
+        <%= @article.description %>
+      </article>
+    </div>
+    <div class="panel-footer">
+      <%= link_to '<button class="btn btn-primary">Edit this article</button>'.html_safe, edit_article_path(@article) %>
+      <%= link_to '<button class="btn btn-warning">Save this article</button>'.html_safe %>
+    </div>
+  </div>
+  <%= render 'back_to_articles_link' %>
 
-<%= link_to 'Edit this article', edit_article_path(@article) %> |
-<%= render 'back_to_articles_link' %>
+</div>

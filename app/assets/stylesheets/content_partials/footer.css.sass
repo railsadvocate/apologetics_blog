@@ -1,0 +1,22 @@
+footer
+  margin: 4em 1em 4em 1em
+  border-top: 1px solid #eaeaea
+  #copyright
+    float: left
+    @media screen and (max-width: 992px)
+      float: none
+      text-align: center
+  #footer-nav
+    float: right
+    @media screen and (max-width: 992px)
+      float: none
+      text-align: center
+    ul
+      li + li:before
+        content: " | "
+        margin: 0 1em 0 1em
+      li
+        display: inline
+    ul li:first-child
+      margin-left: -2em
+  > a

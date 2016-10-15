@@ -1,20 +1,20 @@
-<h1>Listing all articles</h1>
-
-<%= link_to 'Create new article', new_article_path %>
-<br /><br  />
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-  </tr>
+<div class='container articles-index-pageContent'>
+  <h2 class='page-header'>Listing all articles <button class='btn btn-primary articles-index-createNewArticleBtn'>Create new article</button></h2>
   <% @articles.each do |a| %>
-    <tr>
-      <td><%= a.title %></td>
-      <td><%= a.description %></td>
-      <td><%= link_to 'Show', article_path(a.id) %></td>
-      <td><%= link_to 'Edit', edit_article_path(a) %></td>
-      <td><%= link_to 'Delete', article_path(a), :method => 'delete', :data => {:confirm => "Are you sure?"} %></td>
-    </tr>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <strong><%= a.title %></strong>
+      </div>
+      <div class="panel-body">
+        <article>
+          <%= a.description %>
+        </article>
+      </div>
+      <div class="panel-footer">
+        <%= link_to "<button class='btn btn-sm btn-primary'>Show</button>".html_safe, article_path(a) %>
+        <%= link_to "<button class='btn btn-sm btn-primary'>Edit</button>".html_safe, edit_article_path(a) %>
+        <%= link_to "<button class='btn btn-sm btn-danger'>Delete</button>".html_safe, article_path(a), :method => 'delete' %>
+      </div>
+    </div>
   <% end %>
-</table>
+</div>

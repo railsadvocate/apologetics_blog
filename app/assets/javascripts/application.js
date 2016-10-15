@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+  $(".exit-flash-message").click(function() {
+    $(".flash-message-wrapper").css("display", "none");
+  });
+});

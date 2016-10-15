@@ -1,7 +1,14 @@
 <% flash.each do |name, msg| %>
-  <ul>
-    <li>
-      <%= msg %>
-    </li>
-  </ul>
+  <div class="articles-index-message-wrapper flash-message-wrapper row">
+    <div class='col-xs-10'>
+      <ul>
+        <li>
+          <%= msg %>
+        </li>
+      </ul>
+    </div>
+    <div class='col-xs-2 exit-flash-message'>
+      <span class='glyphicon glyphicon-remove'></span>
+    </div>
+  </div>
 <% end %>

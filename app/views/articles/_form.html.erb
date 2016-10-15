@@ -1,24 +1,45 @@
+<% typeLowCase = type.downcase %>
+
 <% if @article.errors.any? %>
-<h2>The following errors prevented the article from being updated</h2>
-  <ul>
-    <% @article.errors.full_messages.each do |msg| %>
-      <li>
-        <%= msg %>
-      </li>
-    <% end %>
-  </ul>
+  <div class='row flash-message-wrapper'>
+    <div class='form-error-messages col-sm-offset-1 col-sm-9'>
+      <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class='col-sm-1 exit-flash-message'>
+      <span class='glyphicon glyphicon-remove'></span>
+    </div>
+  </div>
 <% end %>
 
 <%= form_for @article do |f| %>
-  <p>
+<div class='row'>
+  <div class='form-group col-sm-6 col-sm-offset-1'>
       <%= f.label :title %><br />
-      <%= f.text_field :title %>
-  </p>
-  <p>
+      <%= f.text_field :title, :autofocus => true, :class => 'form-control' %>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm-10 col-sm-offset-1">
     <%= f.label :description %><br />
     <%= f.text_area :description %>
-  </p>
-  <%= f.submit "Submit" %>
-<% end %>
+  </div>
+</div>
 
-<%= render 'back_to_articles_link' %>
+<div class='row'>
+  <div class='col-sm-12 col-sm-offset-1'>
+    <%= f.submit "#{type} article", :class => 'btn btn-primary btn-lg' %>
+  </div>
+</div>
+
+<% end %>
+<div class='row'>
+  <div class='col-xs-8 col-xs-offset-3'>
+    <%= link_to "[ Exit #{typeLowCase} article and return to article listings ]", articles_path %>
+  </div>
+</div>
