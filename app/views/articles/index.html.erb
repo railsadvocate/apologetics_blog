@@ -1,5 +1,7 @@
 <div class='container articles-index-pageContent'>
-  <h2 class='page-header'>Listing all articles <button class='btn btn-primary articles-index-createNewArticleBtn'>Create new article</button></h2>
+  <h2 class='page-header'>Listing all articles
+    <%= link_to "<button class='btn btn-primary articles-index-createNewArticleBtn'>Create new article</button>".html_safe, new_article_path %>
+  </h2>
   <% @articles.each do |a| %>
     <div class="panel panel-info">
       <div class="panel-heading">
