@@ -10,6 +10,13 @@
       <div class="panel-body">
         <article>
           <%= a.description %>
+          <br />
+          <br />
+          <small>
+            <strong>Created by:</strong> <%= a.user.username if a.user %><br  />
+            <strong>Created:</strong> <%= time_ago_in_words(a.created_at) %> ago<br  />
+            <strong>Last updated:</strong> <%= time_ago_in_words(a.updated_at) %> ago.
+          </small>
         </article>
       </div>
       <div class="panel-footer">
