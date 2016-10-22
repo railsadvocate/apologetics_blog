@@ -1,7 +1,14 @@
 .articles-index-pageContent
   @import 'header_style'
 
-.articles-index-createNewArticleBtn
-  float: right
-
-@media screen and (max-width: 420xp)
+.articles-index-createNewArticleBtnWrapper
+  button
+    float: right
+    @media screen and (max-width: 420px)
+      display: none
+  div
+    display: none
+    cursor: pointer
+    float: right
+    @media screen and (max-width: 420px)
+      display: block

@@ -1,6 +1,6 @@
 <div class='container articles-index-pageContent'>
-  <h2 class='page-header'>Listing all articles
-    <%= link_to "<button class='btn btn-primary articles-index-createNewArticleBtn'>Create new article</button>".html_safe, new_article_path %>
+  <h2 class='page-header articles-index-createNewArticleBtnWrapper'>Listing all articles
+    <%= link_to "<button class='btn btn-primary'>Create new article</button><div class='glyphicon glyphicon-edit'></div>".html_safe, new_article_path %>
   </h2>
   <% @articles.each do |a| %>
     <div class="panel panel-info">
@@ -10,8 +10,7 @@
       <div class="panel-body">
         <article>
           <%= a.description %>
-          <br />
-          <br />
+          <hr />
           <small>
             <strong>Created by:</strong> <%= a.user.username if a.user %><br  />
             <strong>Created:</strong> <%= time_ago_in_words(a.created_at) %> ago<br  />

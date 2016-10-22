@@ -9,8 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
 
-  <!-- http://www.colorcombos.com/color-schemes/244/ColorCombo244.html -->
-
   <body>
     <div id="top-bar"></div>
     <div class="container main-content-container">
@@ -18,7 +16,7 @@
       <%= render 'layouts/messages' %>
       <%= yield %>
       <%= render 'layouts/footer' %>
-      <%= debug(params) if Rails.env.development? %>
+    <!--  <%= debug(params) if Rails.env.development? %> -->
     </div>
   </body>
 </html>
