@@ -2,27 +2,5 @@
   <h2 class='page-header articles-index-createNewArticleBtnWrapper'>Listing all articles
     <%= link_to "<button class='btn btn-primary'>Create new article</button><div class='glyphicon glyphicon-edit'></div>".html_safe, new_article_path %>
   </h2>
-  <% @articles.each do |a| %>
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <strong><%= a.title %></strong>
-      </div>
-      <div class="panel-body">
-        <article>
-          <%= a.description %>
-          <hr />
-          <small>
-            <strong>Created by:</strong> <%= a.user.username if a.user %><br  />
-            <strong>Created:</strong> <%= time_ago_in_words(a.created_at) %> ago<br  />
-            <strong>Last updated:</strong> <%= time_ago_in_words(a.updated_at) %> ago.
-          </small>
-        </article>
-      </div>
-      <div class="panel-footer">
-        <%= link_to "<button class='btn btn-sm btn-primary'>Show</button>".html_safe, article_path(a) %>
-        <%= link_to "<button class='btn btn-sm btn-primary'>Edit</button>".html_safe, edit_article_path(a) %>
-        <%= link_to "<button class='btn btn-sm btn-danger'>Delete</button>".html_safe, article_path(a), :method => 'delete' %>
-      </div>
-    </div>
-  <% end %>
+  <%= render 'articles_listing', obj: @articles %>
 </div>

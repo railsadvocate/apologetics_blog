@@ -1,0 +1,24 @@
+<div class='container users-show-pageContent'>
+  <h2 class='page-header center-in-block'>Welcome to <%= @user.username %>'s page</h2>
+  <div class='row'>
+    <div class='col-md-4 col-md-offset-4 center-in-block'>
+      <%= gravatar_for @user, size: 150 %>
+    </div>
+  </div>
+  <br />
+  <div class='row'>
+    <div class='col-sm-4 col-sm-offset-4 center-in-block'>
+      Email: <%= @user.email %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-6 col-sm-offset-3 center-in-block'>
+      <h4><%= @user.username %>'s articles</h4>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1'>
+      <%= render 'articles/articles_listing', obj: @user.articles %>
+    </div>
+  </div>
+</div>
