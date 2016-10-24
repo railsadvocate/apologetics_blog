@@ -9,6 +9,11 @@
         <span class="icon-bar"></span>
       </button>
       <%= link_to "Articles", articles_path, class: "navbar-brand" %>
+      <% if session[:user_id] %>
+      <%= link_to "Log out", logout_path, method: :delete, class: "navbar-brand" %>
+      <% else %>
+      <%= link_to "Log in", login_path, class: "navbar-brand" %>
+      <% end %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
