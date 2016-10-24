@@ -4,6 +4,9 @@
       <h2 class='page-header'>All users</h2>
     </div>
   </div>
+  <div class='center-in-block'>
+    <%= will_paginate %>
+  </div>
   <% @users.each do |u| %>
     <div class='row'>
       <div class='col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 users-index-userEntry'>
@@ -17,4 +20,7 @@
     <br />
     <br />
   <% end %>
+  <div class='center-in-block'>
+    <%= will_paginate %>
+  </div>
 </div>
