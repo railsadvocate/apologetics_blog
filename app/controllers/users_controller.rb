@@ -2,6 +2,10 @@ class UsersController < ApplicationController
 
   before_action :get_user_from_params, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @users = User.all
+  end
+
   def new
     @user = User.new
   end

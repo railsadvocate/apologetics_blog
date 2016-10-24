@@ -6,7 +6,13 @@
       <%= @article.title %>
     </div>
     <div class="panel-body">
-      <article class="articles-show-articleBody">
+      <article class="articles-show-articleBody center-in-block">
+        <% if @article.user %>
+          Created by:<br />
+          <%= link_to gravatar_for(@article.user), user_path(@article.user) %><br />
+          <%= link_to @article.user.username, user_path(@article.user) %><br/>
+          <hr />
+        <% end %>
         <%= @article.description %>
       </article>
     </div>
