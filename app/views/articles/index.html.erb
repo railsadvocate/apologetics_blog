@@ -1,12 +1,19 @@
 <div class='container articles-index-pageContent'>
-  <h2 class='page-header articles-index-createNewArticleBtnWrapper'>Listing all articles
-    <%= link_to "<button class='btn btn-primary'>Create new article</button><div class='glyphicon glyphicon-edit'></div>".html_safe, new_article_path %>
-  </h2>
-  <div class='center-in-block'>
+  <div class='row'>
+    <div class='col-md-8 col-md-offset-2'>
+      <h2 class='page-header articles-index-createNewArticleBtnWrapper'>Listing all articles
+        <%= link_to "<button class='btn btn-primary'>Create new article</button><div class='glyphicon glyphicon-edit'></div>".html_safe, new_article_path %>
+      </h2>
+    </div>
+  </div>
+  <div class='center-in-block articles-index-topPagination'>
     <%= will_paginate %>
   </div>
   <%= render 'articles_listing', obj: @articles %>
   <div class='center-in-block'>
+    <% if @articles.count > 1 %>
     <%= will_paginate %>
+    <%= @articles.count %>
+    <% end %>
   </div>
 </div>

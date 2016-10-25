@@ -5,7 +5,9 @@
       This website was developed for the purpose of providing a space for people to discuss and debate
       topics related to science and religion.
     </p>
+    <% if !session[:user_id] %>
     <%= link_to "<button class='btn btn-primary pages-home-signUpButton'>Sign up</button>".html_safe, signup_path %>
+    <% end %>
     <div class='row' id='bible-verse-home-page-row'>
       <div id='main-page-bible-quote'>
         <div id="first-peter-title">1st Peter 3:19</div>

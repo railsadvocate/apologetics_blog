@@ -2,7 +2,7 @@
   <div class='row'>
     <div class='form-group col-sm-6 col-md-offset-1'>
       <%= f.label :title %>
-      <%= f.text_field :title, :autofocus => true, :class => 'form-control' %>
+      <%= f.text_field :title, :class => 'form-control autofocussed' %>
     </div>
   </div>
   <div class="row">
@@ -13,7 +13,7 @@
   </div>
 
   <div class='row'>
-    <div class='col-sm-12 col-md-offset-1'>
+    <div class='col-sm-12 col-md-offset-1 articles-formSubmitButton'>
       <%= f.submit "#{type} article", :class => 'btn btn-primary btn-lg' %>
     </div>
   </div>

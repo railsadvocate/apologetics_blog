@@ -16,8 +16,13 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
+
   $(".exit-flash-message").click(function() {
     $(".flash-message-wrapper, .form-error-messages").css("display", "none");
   });
+
+  if (window.innerWidth < 400) {
+    $('.autofocussed').focus();
+  }
 });
