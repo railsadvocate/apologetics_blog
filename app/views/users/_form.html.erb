@@ -12,6 +12,10 @@
     <%= f.password_field :password, placeholder: "Enter password", class: 'form-control' %>
   </div>
 
+  <p>
+    Already have an account? <%= link_to "Log in!", login_path %>
+  </p>
+
   <div class='users-formSubmitButton'>
     <%= f.submit @action, :class => 'btn btn-primary' %>
   </div>
