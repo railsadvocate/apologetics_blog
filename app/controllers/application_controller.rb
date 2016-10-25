@@ -1,9 +1,21 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_filter :get_user_if_session
+  before_filter :current_user
 
-  private
-  def get_user_if_session
-    @user = User.find_by(id: session[:user_id])
+  helper_method :current_user, :logged_in?
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def logged_in?
+    !!current_user
+  end
+
+  def require_user
+    if !logged_in?
+      flash[:danger] = "You must be logged in to perform that action"
+      redirect_to root_path
+    end
   end
 end
