@@ -20,7 +20,7 @@
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
           <li><%= link_to 'Log out', logout_path, method: :delete %></li>
-          <%= link_to (gravatar_for @current_user, size: 50), user_path(@current_user), class: 'nav-gravitar' %>
+          <%= link_to (gravatar_for @current_user, size: 45), user_path(@current_user), class: 'nav-gravitar' %>
         <% else %>
           <li><%= link_to 'Sign up', signup_path %></li>
           <li><%= link_to 'Log in', login_path %></li>
