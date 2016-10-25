@@ -1,0 +1,14 @@
+<% if obj.errors.any? %>
+  <div class="flash-message-wrapper form-error-messages row">
+    <div class='col-xs-10 col-md-9 col-md-offset-1'>
+      <% obj.errors.full_messages.each do |msg| %>
+        <div>
+          <%= msg %>
+        </div>
+      <% end %>
+    </div>
+    <div class='col-xs-2 exit-flash-message'>
+      <span class='glyphicon glyphicon-remove'></span>
+    </div>
+  </div>
+<% end %>

@@ -9,6 +9,9 @@
       <%= f.label :password %><br />
       <%= f.password_field :password, placeholder: "Enter password", autocomplete: 'off', class: 'form-control' %>
     </div>
+    <p>
+      Don't have an account? <%= link_to 'Sign up!', signup_path %>
+    </p>
     <div>
       <%= f.submit @action, :class => 'btn btn-primary' %>
     </div>

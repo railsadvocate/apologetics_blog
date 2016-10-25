@@ -1,4 +1,5 @@
 <div class='container articles articles-edit-pageContent'>
+  <%= render 'shared/errors', obj: @article %>
   <h2 class='page-header col-md-offset-1'>Edit existing article</h1>
   <%= render 'form', :type => 'Edit' %>
 </div>

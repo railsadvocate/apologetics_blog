@@ -8,7 +8,7 @@
         <%= a.description %>
         <hr />
         <small>
-          <strong>Created by:</strong> <%= a.user.username if a.user %><br  />
+          <strong>Created by:</strong> <%= link_to a.user.username, user_path(a) if a.user && a.user.id %><br  />
           <strong>Created:</strong> <%= time_ago_in_words(a.created_at) %> ago<br  />
           <strong>Last updated:</strong> <%= time_ago_in_words(a.updated_at) %> ago.
         </small>

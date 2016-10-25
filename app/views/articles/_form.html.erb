@@ -1,34 +1,13 @@
-<% if @article.errors.any? %>
-  <div class="row">
-    <div class='col-xs-12 col-md-10 col-md-offset-1'>
-      <div class='row form-error-messages'>
-        <div class='col-xs-9'>
-          <ul>
-          <% @article.errors.full_messages.each do |msg| %>
-            <li>
-              <%= msg %>
-          <% end %>
-          </li>
-        </ul>
-        </div>
-        <div class='col-xs-2 exit-flash-message'>
-          <span class='glyphicon glyphicon-remove'></span>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
-
 <%= form_for @article do |f| %>
   <div class='row'>
     <div class='form-group col-sm-6 col-md-offset-1'>
-      <%= f.label :title %><br />
+      <%= f.label :title %>
       <%= f.text_field :title, :autofocus => true, :class => 'form-control' %>
     </div>
   </div>
   <div class="row">
     <div class="form-group col-sm-12 col-md-10 col-md-offset-1">
-      <%= f.label :description %><br />
+      <%= f.label :description %>
       <%= f.text_area :description %>
     </div>
   </div>
