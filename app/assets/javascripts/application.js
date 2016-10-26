@@ -25,4 +25,18 @@ $(document).on('turbolinks:load', function() {
   if (window.innerWidth < 400) {
     $('.autofocussed').focus();
   }
+
+  $('.articles-comments-section-toggle').click(function() {
+    $('.articles-comments-section').toggle(500);
+  });
+
+  $(function() {
+    $(".articles-comments-form textarea").keypress(function (e) {
+      if(e.which == 13) {
+        $(this).closest('form').submit();
+        e.preventDefault();
+      }
+    });
+  });
+
 });

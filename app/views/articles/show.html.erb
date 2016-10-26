@@ -1,26 +1,29 @@
 <div class='container articles articles-show-pageContent'>
-  <h2 class='page-header'>Showing selected article</h2>
+  <div class='row'>
+    <div class='col-sm-10 col-sm-offset-1'>
+      <h2 class='page-header'>Showing selected article</h2>
 
-  <div class='panel panel-info'>
-    <div class="panel-heading articles-show-articleTitle">
-      <%= @article.title %>
-    </div>
-    <div class="panel-body">
-      <article class="articles-show-articleBody center-in-block">
-        <% if @article.user %>
-          Created by:<br />
-          <%= link_to gravatar_for(@article.user), user_path(@article.user) %><br />
-          <%= link_to @article.user.username, user_path(@article.user) %><br/>
-          <hr />
-        <% end %>
-        <%= @article.description %>
-      </article>
-    </div>
-    <div class="panel-footer articles-show-actionButtonInFooter">
-      <%= link_to '<button class="btn btn-primary">Edit this article</button>'.html_safe, edit_article_path(@article) if logged_in? && current_user == @article.user %>
-      <%= link_to '<button class="btn btn-warning">Save this article</button>'.html_safe %>
+      <div class='panel panel-info'>
+        <div class="panel-heading articles-show-articleTitle">
+          <%= @article.title %>
+        </div>
+        <div class="panel-body">
+          <article class="articles-show-articleBody center-in-block">
+            <% if @article.user %>
+              Created by:<br />
+              <%= link_to gravatar_for(@article.user), user_path(@article.user) %><br />
+              <%= link_to @article.user.username, user_path(@article.user) %><br/>
+              <hr />
+            <% end %>
+            <%= @article.description %>
+          </article>
+        </div>
+        <div class="panel-footer articles-show-actionButtonInFooter">
+          <%= link_to '<button class="btn btn-primary">Edit this article</button>'.html_safe, edit_article_path(@article) if logged_in? && current_user == @article.user %>
+          <%= link_to '<button class="btn btn-warning">Save this article</button>'.html_safe %>
+        </div>
+      </div>
+      <%= render 'back_to_articles_link' %>
     </div>
   </div>
-  <%= render 'back_to_articles_link' %>
-
 </div>

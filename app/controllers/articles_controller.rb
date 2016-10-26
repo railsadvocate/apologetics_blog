@@ -5,6 +5,7 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = Article.paginate(page: params[:page], per_page: 5)
+    @comment = Comment.new
   end
 
   def new
@@ -31,8 +32,11 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    flash[:notice] = "Article was successfully deleted"
-    redirect_to articles_path
+    respond_to do |format|
+      format.html { redirect_to articles_path }
+      format.json { head :no_content }
+      format.js   { render :layout => false }
+   end
   end
 
   def update

@@ -9,16 +9,17 @@
   <div class='center-in-block articles-index-topPagination'>
     <%= will_paginate %>
   </div>
-  <% if @articles.count > 0 %>
+  <% if @articles.length == 0 %>
+    <div class='row'>
+      <div class='col-md-8 col-md-offset-2'>
+        <h4>
+          There are no articles to show. <%= link_to 'Create the first article!', new_article_path %>
+        </h4>
+      </div>
+    </div>
+  <% end %>
   <%= render 'articles_listing', obj: @articles %>
   <div class='center-in-block'>
-    <% if @articles.count > 1 %>
     <%= will_paginate %>
-    <% end %>
   </div>
-  <% else %>
-  <p>
-    There are no articles to show.
-  </p>
-  <% end %>
 </div>

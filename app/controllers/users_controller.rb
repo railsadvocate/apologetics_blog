@@ -25,6 +25,7 @@ class UsersController < ApplicationController
 
   def show
     @articles = @user.articles.paginate(per_page: 5, page: params[:page])
+    @comment = Comment.new
   end
 
   def edit

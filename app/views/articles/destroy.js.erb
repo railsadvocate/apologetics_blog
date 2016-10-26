@@ -1,0 +1,4 @@
+$('.delete_article').bind('ajax:success', function() {
+  $(this).closest('article').fadeOut();
+  console.log("here in delete!");
+});
