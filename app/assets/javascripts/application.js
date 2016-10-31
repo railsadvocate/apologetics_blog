@@ -14,29 +14,18 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
-//= require_tree .
+//= require article
 
 $(document).on('turbolinks:load', function() {
-
-  $(".exit-flash-message").click(function() {
-    $(".flash-message-wrapper, .form-error-messages").css("display", "none");
-  });
-
+  Article.ready();
+  globalListeners();
   if (window.innerWidth < 400) {
     $('.autofocussed').focus();
   }
-
-  $('.articles-comments-section-toggle').click(function() {
-    $('.articles-comments-section').toggle(500);
-  });
-
-  $(function() {
-    $(".articles-comments-form textarea").keypress(function (e) {
-      if(e.which == 13) {
-        $(this).closest('form').submit();
-        e.preventDefault();
-      }
-    });
-  });
-
 });
+
+globalListeners = function() {
+  $(".exit-flash-message").click(function() {
+    $(".flash-message-wrapper, .form-error-messages").css("display", "none");
+  });
+}

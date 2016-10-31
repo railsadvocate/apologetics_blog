@@ -1,2 +1,23 @@
-$('.articles-comments-section').hide().append('<div><%= @comment.text %></div>').fadeIn(1500);
-$('.articles-comments-input-field').val('')
+(function($) {
+  var $article = $(".<%= @article.id %>");
+  var $articleVisibility = $article.find('.article-comments-visibility');
+  var $commentsVisibilityText = $articleVisibility.find("span:first-child");
+  var $articleComments = $article.find('.article-comments-body');
+  var numComments = <%= @article.comments.length %>;
+
+  $article.find('textarea').val('');
+  $article.find('.badge').text(numComments);
+
+  if (numComments === 1) {
+    $articleVisibility.closest('section').fadeIn();
+    $commentsVisibilityText.html('Hide comments');
+  }
+  else {
+    if ($commentsVisibilityText.html() === 'View comments') {
+      $commentsVisibilityText.html('Hide comments');
+    }
+  }
+
+  $articleComments.hide().append("<%= j render 'articles/comment', article: @article, comment: @comment %>").fadeIn();
+
+})(jQuery);

@@ -1,0 +1,35 @@
+<div class='article-comment comment<%= comment.id %>'>
+  <hr />
+  <% if logged_in? && comment.user == current_user %>
+  <%= link_to "<span class='glyphicon glyphicon-remove remove-article-comment'></span>".html_safe, article_comment_path(article, comment), method: :delete, remote: true %>
+  <span class='glyphicon glyphicon-pencil edit-article-comment' data-toggle='modal' data-target='#editCommentModal-<%= comment.id %>'></span>
+  <% end %>
+  <span class='article-comment-text'>
+    <span class='article-comment-text-content'><%= comment.text %></span><br />
+     <%= link_to comment.user.username, user_path(comment.user) %> |
+     <small><%= time_ago_in_words(comment.updated_at) %> ago</small>
+   </span>
+</div>
+
+<div class='modal fade' id='editCommentModal-<%= comment.id %>' role='dialog'>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h3>Edit your comment</h3>
+      </div>
+      <div class='modal-body articles-comments-form'>
+        <div class='article-comment-form-error'>
+          <% # this area gets filled dynamically with javascript upon form error %>
+        </div>
+        <%= form_for [article, comment], url: article_comment_path(article.id, comment.id), method: :patch, html: {class: 'new-comment-form'}, remote: true do |f| %>
+          <%= f.text_area :text, placeholder: 'Comment...', class: 'form-control', autofocus: true %>
+        <% end %>
+        <small>Characters: <span class='number-of-characters-in-comment'>0</span></small>
+      </div>
+      <div class='modal-footer article-edit-comment-footer'>
+        <button class='btn btn-success submit-updated-article-comment'>Update comment</button>
+        <button class='btn btn-primary dismiss-article-comment-modal' data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

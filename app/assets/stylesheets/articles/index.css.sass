@@ -24,17 +24,59 @@
 .articles-index-articleTitleInPanel
   font-size: 1.2em
 
+// article comments
+.edit-article-comment
+  margin-right: .5em
+
 .articles-comments-form textarea
   padding-left: 10px
   font-size: 1.3em
 
-.articles-comments-section-toggle
-  margin: .5em 0
-  > span
-    cursor: pointer
-    color: #337AB7
-    &:hover
-      text-decoration: underline
-
 .articles-comments-section
   display: none
+  > header
+    cursor: pointer
+    margin: .5em 0
+    > span:not(.badge)
+      color: #337AB7
+      &:hover
+        text-decoration: underline
+
+  .article-comments-body
+    display: none
+    background-color: #FFFFDD
+    > .article-comment-text
+      margin-left: .5em
+    hr
+      margin: .75em
+    > div
+      margin-left: .5em
+      font-size: .9em
+      .glyphicon
+        color: $fourth-color
+      .glyphicon-remove
+        color: $fourth-color
+      .glyphicon-pencil
+        margin-left: .5em
+    > div:last-child
+      padding-bottom: .5em
+
+.article-comment-form-error
+  display: none
+  background-color: rgba(234,67,53,.7)
+  color: red
+  font-size: 1.2em
+  padding: .5em
+  margin: .5em 0
+
+.number-of-characters-in-comment-wrapper
+  display: none
+
+.edit-article-comment
+  cursor: pointer
+
+.modal-header > h3
+  color: $fourth-color
+
+.article-edit-comment-footer
+  text-align: left

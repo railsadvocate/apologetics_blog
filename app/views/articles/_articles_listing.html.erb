@@ -1,5 +1,5 @@
 <% obj.each do |a| %>
-  <article class='row'>
+  <article class='row <%= a.id %>'>
     <div class='col-md-8 col-md-offset-2'>
       <div class="panel panel-info">
         <div class="panel-heading">
@@ -15,21 +15,26 @@
               <strong>Last updated:</strong> <%= time_ago_in_words(a.updated_at) %> ago.
             </small>
           </div>
-          <% if a.comments.length > 0 %>
-          <div class='articles-comments-section-toggle'>
-            <span class='view-comments-toggle'>View comments (<%= a.comments.length %>)</span>
-          </div>
           <section class='articles-comments-section'>
-            <% a.comments.each do |comment| %>
-              <div><%= comment.text %></div>
-            <% end %>
+            <header class='article-comments-visibility'>
+              <span>View comments</span>
+              <span class='badge'><%= a.comments.length %></span>
+            </header>
+            <section class='article-comments-body'>
+              <% a.comments.each do |comment| %>
+              <%= render 'articles/comment', article: a, comment: comment %>
+              <% end %>
+            </section>
           </section>
-          <% end %>
         </div>
         <div class='panel-footer articles-comments-form'>
-          <%= form_for [a, @comment], url: article_comments_path([a, @comment]), remote: true do |f| %>
+          <div class='article-comment-form-error'>
+            <% # this area gets filled dynamically with javascript upon form error %>
+          </div>
+          <%= form_for [a, @comment], url: article_comments_path([a, @comment]), html: {class: 'new-comment-form'}, remote: true do |f| %>
             <%= f.text_area :text, placeholder: 'Comment...', class: 'articles-comments-input-field form-control' %>
           <% end %>
+          <small class='number-of-characters-in-comment-wrapper'>Characters: <span class='number-of-characters-in-comment'>0</span></small>
         </div>
         <div class="panel-footer articles-index-articleActions">
           <%= link_to "<button class='btn btn-sm btn-primary'>View</button>".html_safe, article_path(a) %>

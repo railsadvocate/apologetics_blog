@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :users, execept: [:new]
   resources :articles do
-    resources :comments, except: [:index, :new, :show]
+    resources :comments, except: [:index, :new, :show, :edit]
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -1,0 +1,6 @@
+(function($) {
+  var $article = $(".<%= @article.id %>");
+  var $commentToUpdate = $article.find('.comment<%= @comment.id %>').find('.article-comment-text-content');
+  $('.dismiss-article-comment-modal').click();
+  $commentToUpdate.text("<%= @comment.text %>");
+})(jQuery);

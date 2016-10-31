@@ -1,0 +1,11 @@
+(function($) {
+  var $article = $(".<%= @article.id %>");
+  var $commentToDelete = $article.find('.comment<%= @comment_id %>');
+  var numComments = <%= @article.comments.length %>
+
+  $commentToDelete.fadeOut();
+  $article.find('.badge').text(numComments);
+  if (numComments == 0) {
+    $article.find('.articles-comments-section').fadeOut();
+  }
+})(jQuery);
