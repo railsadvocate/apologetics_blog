@@ -27,6 +27,7 @@
             </section>
           </section>
         </div>
+        <% if logged_in? %>
         <div class='panel-footer articles-comments-form'>
           <div class='article-comment-form-error'>
             <% # this area gets filled dynamically with javascript upon form error %>
@@ -41,6 +42,7 @@
           <%= link_to "<button class='btn btn-sm btn-primary'>Edit</button>".html_safe, edit_article_path(a) if logged_in? && current_user == a.user %>
           <%= link_to "<button class='btn btn-sm btn-danger'>Delete</button>".html_safe, article_path(a), :method => 'delete', remote: true, class: 'delete_article' if logged_in? && current_user == a.user %>
         </div>
+        <% end %>
       </div>
     </div>
   </article>
