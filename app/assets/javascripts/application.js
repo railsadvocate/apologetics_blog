@@ -22,6 +22,7 @@ $(document).on('turbolinks:load', function() {
   if (window.innerWidth < 400) {
     $('.autofocussed').focus();
   }
+  $('[data-toggle="popover"]').popover();
 });
 
 globalListeners = function() {

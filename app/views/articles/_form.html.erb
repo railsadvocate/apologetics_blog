@@ -5,10 +5,16 @@
       <%= f.text_field :title, :class => 'form-control autofocussed' %>
     </div>
   </div>
+  <div class='row'>
+    <div class='col-sm-12 col-md-10 col-md-offset-1'>
+      <%= f.label :short_description, class: 'article-short-description-field-label', data: {toggle: "popover", content: "This text will be displayed on the main articles page for all users to see."} %>
+      <%= f.text_area :short_description, class: 'article-short-description-field' %>
+    </div>
+  </div>
   <div class="row">
     <div class="form-group col-sm-12 col-md-10 col-md-offset-1">
       <%= f.label :description %>
-      <%= f.text_area :description %>
+      <%= f.text_area :description, class: 'article-body-field' %>
     </div>
   </div>
 

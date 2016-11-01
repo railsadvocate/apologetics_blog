@@ -15,7 +15,9 @@
               <%= link_to @article.user.username, user_path(@article.user) %><br/>
               <hr />
             <% end %>
-            <%= @article.description %>
+            <div id='articles-show-articleBody'>
+                <%= @article.description %>
+            </div>
           </article>
         </div>
         <div class="panel-footer articles-show-actionButtonInFooter">

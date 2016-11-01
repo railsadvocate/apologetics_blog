@@ -2,6 +2,74 @@
   var $badge;
   var numComments;
 
+  Article.searchForEndOfString = function(currentState, markdownText, pattern, patternTerminator) {
+    // search for next double asterik
+    endOfString = false;
+    for (currentState.indexOfCurrent; currentState.indexOfCurrent < markdownText.length && !endOfString; currentState.indexOfCurrent += 1) {
+      switch(markdownText[currentState.indexOfCurrent]) {
+      case pattern[0]:
+        if (pattern.length === 2) {
+          switch(markdownText[currentState.indexOfCurrent + 1]) {
+          case pattern[1]:
+            currentState.plainTextBuilder += patternTerminator;
+            endOfString = true;
+            break;
+          default:
+            currentState.plainTextBuilder += markdownText[currentState.indexOfCurrent];
+            break;
+          }
+        }
+        else {
+          // found end of pattern!
+          currentState.plainTextBuilder += patternTerminator;
+        }
+        break;
+      default:
+        currentState.plainTextBuilder += markdownText[currentState.indexOfCurrent];
+        break;
+      }
+    }
+    return currentState;
+  }
+
+  Article.handleNextCharacter = function(markdownText, currentState) {
+    switch(markdownText[currentState.indexOfCurrent]) {
+    case '*':
+      switch (markdownText[currentState.indexOfCurrent + 1]) {
+      case '*':
+        currentState.plainTextBuilder += "<strong>";
+        currentState.indexOfCurrent += 2;
+        currentState = Article.searchForEndOfString(currentState, markdownText, "**", "</strong>");
+        break;
+      default:
+        currentState.articlePlainTextBuilder += '*';
+        break;
+      }
+      break;
+    case '_':
+      currentState.articlePlainTextBuilder += "<em>"
+      currentState = Article.searchForEndOfString(currentState, markdownText, '_', "</em>");
+      break;
+    default:
+      currentState.articlePlainTextBuilder += markdownText[currentState.indexOfCurrent];
+      break;
+    }
+    return currentState;
+  }
+
+  Article.convertMarkdownToText = function(articleBody) {
+    var articlePlainTextBuilder = "";
+    var markdownText = articleBody.text();
+    var currentState = {};
+    currentState.indexOfCurrent = 0;
+    currentState.plainTextBuilder = "";
+    for (currentState.indexOfCurrent = 0; currentState.indexOfCurrent < markdownText.length; currentState.indexOfCurrent += 1) {
+      currentState = Article.handleNextCharacter(markdownText, currentState);
+    }
+    console.log(currentState.plainTextBuilder);
+    articleBody.html(currentState.plainTextBuilder);
+  }
+
   Article.comment = {
     showArticleCommentSection : function() {
       $('.articles-comments-section').each(function() {
@@ -41,18 +109,15 @@
         $selector.closest('form').submit();
       }
       e.preventDefault();
-    },
-    test : function() {
-      console.log("testing...");
     }
   }
-  Article.comment.test();
   return Article;
 
 })(Article = window.Article || {}, jQuery);
 
 // articles / comments events
 Article.ready = function() {
+  Article.convertMarkdownToText($('#articles-show-articleBody'));
   Article.comment.showArticleCommentSection();
   $('.article-comments-visibility > span').on('click', function() {
     console.log("hello");
