@@ -47,21 +47,20 @@
       }
       break;
     case '_':
-      currentState.articlePlainTextBuilder += "<em>"
+      currentState.plainTextBuilder += "<em>";
+      currentState.indexOfCurrent += 1;
       currentState = Article.searchForEndOfString(currentState, markdownText, '_', "</em>");
       break;
     default:
-      currentState.articlePlainTextBuilder += markdownText[currentState.indexOfCurrent];
+      currentState.plainTextBuilder += markdownText[currentState.indexOfCurrent];
       break;
     }
     return currentState;
   }
 
   Article.convertMarkdownToText = function(articleBody) {
-    var articlePlainTextBuilder = "";
     var markdownText = articleBody.text();
     var currentState = {};
-    currentState.indexOfCurrent = 0;
     currentState.plainTextBuilder = "";
     for (currentState.indexOfCurrent = 0; currentState.indexOfCurrent < markdownText.length; currentState.indexOfCurrent += 1) {
       currentState = Article.handleNextCharacter(markdownText, currentState);

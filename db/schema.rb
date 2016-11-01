@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20161031180738) do
     t.integer  "article_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.         "string"
     t.string   "user_id"
   end
 
