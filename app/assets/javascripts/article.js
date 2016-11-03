@@ -3,9 +3,10 @@
   var numComments;
 
   Article.searchForEndOfString = function(currentState, markdownText, pattern, patternTerminator) {
-    // search for next double asterik
     endOfString = false;
+    var pattern;
     for (currentState.indexOfCurrent; currentState.indexOfCurrent < markdownText.length && !endOfString; currentState.indexOfCurrent += 1) {
+      pattern = currentState.tokenStack.nextToken();
       switch(markdownText[currentState.indexOfCurrent]) {
       case pattern[0]:
         if (pattern.length === 2) {
@@ -15,7 +16,8 @@
             endOfString = true;
             break;
           default:
-            currentState.plainTextBuilder += markdownText[currentState.indexOfCurrent];
+            //currentState.plainTextBuilder += markdownText[currentState.indexOfCurrent];
+            currentState = Article.handleNextCharacter(mardownText, currentState);
             break;
           }
         }
@@ -25,31 +27,75 @@
         }
         break;
       default:
-        currentState.plainTextBuilder += markdownText[currentState.indexOfCurrent];
+        currentState = Article.handleNextCharacter(markdownText, currentState);
+        //currentState.plainTextBuilder += markdownText[currentState.indexOfCurrent];
         break;
       }
     }
     return currentState;
   }
 
+  Article.performStackOperation = function(pattern, tag, currentState) {
+    var closing_tag = tag.slice(0,1) + '/' + tag.slice(1,tag.length);
+    if (pattern === currentState.tokenStack.peek()) {
+      currentState.tokenStack.pop();
+      currentState.plainTextBuilder += closing_tag;
+    }
+    else {
+      currentState.tokenStack.push(pattern);
+      currentState.plainTextBuilder += tag;
+    }
+    return currentState;
+  }
+
   Article.handleNextCharacter = function(markdownText, currentState) {
     switch(markdownText[currentState.indexOfCurrent]) {
+    case '-':
+      switch (markdownText[currentState.indexOfCurrent + 1]) {
+        case '-':
+          if (markdownText[currentState.indexOfCurrent + 2] === '-') {
+            currentState.indexOfCurrent += 2;
+            currentState.plainTextBuilder += "<hr>";
+          }
+          break;
+        default:
+          break;
+      }
+      break;
+    case '\n':
+      // first character is always a break for some reason..
+      if (currentState.indexOfCurrent == 0) {
+        return currentState;
+      }
+      if (markdownText[currentState.indexOfCurrent + 1] == '\n') {
+        currentState.plainTextBuilder += "</p><p>";
+        currentState.indexOfCurrent += 1;
+      }
+      else {
+        currentState.plainTextBuilder += "<br>";
+      }
+      break;
     case '*':
       switch (markdownText[currentState.indexOfCurrent + 1]) {
       case '*':
-        currentState.plainTextBuilder += "<strong>";
-        currentState.indexOfCurrent += 2;
-        currentState = Article.searchForEndOfString(currentState, markdownText, "**", "</strong>");
+        currentState = Article.performStackOperation('**', "<strong>", currentState);
+        currentState.indexOfCurrent += 1;
         break;
       default:
-        currentState.articlePlainTextBuilder += '*';
+        currentState = Article.performStackOperation('*', "<em>", currentState);
         break;
       }
       break;
     case '_':
-      currentState.plainTextBuilder += "<em>";
-      currentState.indexOfCurrent += 1;
-      currentState = Article.searchForEndOfString(currentState, markdownText, '_', "</em>");
+      switch (markdownText[currentState.indexOfCurrent + 1]) {
+        case '_':
+          currentState = Article.performStackOperation('__', "<strong>", currentState);
+          currentState.indexOfCurrent += 1;
+          break;
+        default:
+          currentState = Article.performStackOperation('_', "<em>", currentState);
+          break;
+      }
       break;
     default:
       currentState.plainTextBuilder += markdownText[currentState.indexOfCurrent];
@@ -61,10 +107,14 @@
   Article.convertMarkdownToText = function(articleBody) {
     var markdownText = articleBody.text();
     var currentState = {};
-    currentState.plainTextBuilder = "";
+    currentState.plainTextBuilder = "<p>";
+    currentState.tokenStack = new Stack();
+
     for (currentState.indexOfCurrent = 0; currentState.indexOfCurrent < markdownText.length; currentState.indexOfCurrent += 1) {
       currentState = Article.handleNextCharacter(markdownText, currentState);
     }
+
+    currentState.plainTextBuilder += "</p>";
     console.log(currentState.plainTextBuilder);
     articleBody.html(currentState.plainTextBuilder);
   }
@@ -119,7 +169,6 @@ Article.ready = function() {
   Article.convertMarkdownToText($('#articles-show-articleBody'));
   Article.comment.showArticleCommentSection();
   $('.article-comments-visibility > span').on('click', function() {
-    console.log("hello");
     var $commentsVisibility = $(this).closest('header').find('span:first-child');
     $commentsVisibility.html($commentsVisibility.html() == 'View comments' ? 'Hide comments' : 'View comments');
     $(this).closest('article').find('.article-comments-body').toggle(500);
@@ -139,8 +188,7 @@ Article.ready = function() {
   });
 
   $('.articles-comments-form textarea').on("focus", function() {
-    console.log("im here");
-    var $numCharactersWrapper = $(this).closest('.articles-comments-form').find($('.number-of-characters-in-comment-wrapper'));
+    var $numCharactersWrapper = $(this).closest('.articles-comments-form').find($('.articles-addComment'));
     var numCharacters = $(this).val().replace(/ /g, "").length;
     Article.comment.placeCursorAtEndOfInput($(this));
     if ($numCharactersWrapper.css("display") === "none") {

@@ -1,7 +1,26 @@
 .articles-show-pageContent
   @import 'header_style'
 
+.articles-show-pageContent
+  background-image: url("space.jpg")
+  background-size: cover
+
+.articles-show-article
+  background-color: #ffe
+  margin-top: 1em
+  margin-bottom: 1em
+  border-radius: 5px
+  box-shadow: 3px 2px 3px
+  > h2 > span
+    float: right
+
 .articles-show-articleBody
+  p
+    white-space: pre-wrap
+    white-space: -moz-pre-wrap
+    white-space: -pre-wrap
+    white-space: -o-pre-wrap
+    word-wrap: break-word
   font-size: 1.4em
   color: $third-color
 
