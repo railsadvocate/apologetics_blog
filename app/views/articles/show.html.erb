@@ -3,15 +3,15 @@
     <div class='col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 articles-show-article'>
       <h2 class='page-header'>
         <%= @article.title %>
-        <span>
-          <%= link_to '<button class="btn btn-primary">Edit this article</button>'.html_safe, edit_article_path(@article) if logged_in? && current_user == @article.user %>
-          <%= link_to '<button class="btn btn-warning">Save this article</button>'.html_safe %>
-        </span>
       </h2>
       <article class="articles-show-articleBody">
         <div id='articles-show-articleBody'><%= @article.description %></div>
         <hr>
       </article>
+      <div class="articles-show-articleActionButtons">
+        <%= link_to '<button class="btn btn-primary">Edit</button>'.html_safe, edit_article_path(@article) if logged_in? && current_user == @article.user %>
+        <%= link_to '<button class="btn btn-warning">Save</button>'.html_safe %>
+      </div>
       <div class="articles-show-articleFooter">
         <small>
           <strong>Author:</strong> <%= link_to @article.user.username, user_path(@article) if @article.user && @article.user.id %><br  />
