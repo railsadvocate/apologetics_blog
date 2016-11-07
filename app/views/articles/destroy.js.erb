@@ -1,3 +1,7 @@
 $('.delete_article').bind('ajax:success', function() {
   $(this).closest('article').fadeOut();
+
+  <% if @articles.count == 0 %>
+    $('#articles-index-noArticlesMessage').html("<%= escape_javascript render 'create_first_article' %>").hide().fadeIn(1000);
+  <% end %>
 });

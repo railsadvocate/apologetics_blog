@@ -32,6 +32,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
+    @articles = Article.all
     respond_to do |format|
       format.html { redirect_to articles_path }
       format.json { head :no_content }
