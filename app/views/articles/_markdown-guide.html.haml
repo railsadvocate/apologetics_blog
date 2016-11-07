@@ -4,10 +4,50 @@
       %li
         To
         %strong bold
-        your text, place two asteriks or two underscores on each side of the text you want to bold
+        your text, place two asteriks or two underscores on each side of the text you want to bold.
+        .example-markdown-expand
+          example...
+        .example-markdown
+          %h4 Example:
+          %code
+            **bolded text**
+            %br
+            __also bolded__
+            %br
+          %h4 output:
+          %strong bolded text
+          %br
+          %strong also bolded
       %li
         To
         %em italicize
-        you text, place a single underscore or a single asterik on each side of the text you want to italicize
+        your text, place a single underscore or a single asterik on each side of the text you want to italicize
+        .example-markdown-expand
+          example...
+        .example-markdown
+          %h4 Example:
+          %code
+            *italicized text*
+            %br
+            _also italicized_
+            %br
+          %h4 output:
+          %em italicized text
+          %br
+          %em also italicized
       %li
         To create a horizontal line to divide your article into sections, place three dashes on an empty line
+        .example-markdown-expand
+          example...
+        .example-markdown
+          %h4 Example:
+          %code
+            &#8208&#8208&#8208
+          %h4 output:
+          %hr
+      %li
+        To create a list, put a dash at the beginning of a line (will create a bullet point)
+      %li
+        Put a number at the beginning of a line to create an ordered list
+      %li
+        Place a pound sign at the beginning of a line to create a header

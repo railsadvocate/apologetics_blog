@@ -3,10 +3,10 @@
     <div class='col-md-8 col-md-offset-2'>
       <div class="panel panel-info">
         <div class="panel-heading">
-          <strong class='articles-index-articleTitleInPanel'><%= a.title %></strong>
+          <strong class='articles-index-articleTitleInPanel'><%= sanitize a.title, tags: %w() %></strong>
         </div>
         <div class="panel-body">
-          <%= a.short_description %>
+          <%= sanitize a.short_description, tags: %w() %>
           <hr />
           <div>
             <small>

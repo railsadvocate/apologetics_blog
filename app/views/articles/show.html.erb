@@ -2,10 +2,10 @@
   <div class='row'>
     <div class='col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 articles-show-article'>
       <h2 class='page-header'>
-        <%= @article.title %>
+        <%= sanitize @article.title, tags: %w() %>
       </h2>
       <article class="articles-show-articleBody">
-        <div id='articles-show-articleBody'><%= @article.description %></div>
+        <div id='articles-show-articleBody'><%= sanitize @article.description, tags: %w() %></div>
         <hr>
       </article>
       <div class="articles-show-articleActionButtons">

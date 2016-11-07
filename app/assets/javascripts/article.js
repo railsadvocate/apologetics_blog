@@ -36,10 +36,12 @@
   }
 
   Article.isValidListItem = function(markdownText, currentState) {
-    var li = markdownText[currentState.indexOfCurrent];
-    var isHr = markdownText.substring(currentState.indexOfCurrent, currentState.indexOfCurrent + 4).trim() == "---";
+    var li = markdownText[currentState.indexOfCurrent + 1];
+    var isHr = markdownText.substring(currentState.indexOfCurrent + 1, currentState.indexOfCurrent + 4) == "---";
+    var valid;
     if (!isHr) {
-      return li === '-' || !isNaN(li);
+      valid = (li === '-' || !isNaN(parseInt(li)));
+      return valid;
     }
     return false;
   }
@@ -48,22 +50,26 @@
     var li = markdownText[index];
     if (li === '-') {
       currentState.currentListTag = "ul";
-      return "<ul><li>";
+      currentState.plainTextBuilder += "<ul><li>";
+      return currentState;
     }
     else {
       currentState.currentListTag = "ol";
-      return "<ol><li>";
+      currentState.plainTextBuilder += "<ol><li>";
+      return currentState;
     }
-  }
+  };
 
   Article.findCorrectCloseTag = function(currentState) {
-    if (currentState.currentListTag === "ul") {
-      return "</li></ul>";
+    if (currentState.currentListTag == "ul") {
+      currentState.plainTextBuilder += "</li></ul>";
     }
     else {
-      return "</li></ol>"
+      currentState.plainTextBuilder += "</li></ol>";
     }
-  }
+    currentState.currentListTag = "";
+    return currentState;
+  };
 
   Article.performStackOperation = function(pattern, tag, currentState) {
     var closing_tag = tag.slice(0,1) + '/' + tag.slice(1,tag.length);
@@ -76,16 +82,100 @@
       currentState.plainTextBuilder += tag;
     }
     return currentState;
-  }
+  };
+
+  Article.checkForList = function(markdownText, currentState) {
+    while (markdownText[currentState.indexOfCurrent + 1] === ' ') {
+      currentState.plainTextBuilder += markdownText[currentState.indexOfCurrent + 1];
+      currentState.indexOfCurrent += 1;
+    }
+    if (Article.isValidListItem(markdownText, currentState)) {
+      console.log("here");
+      if (currentState.activeList) {
+        currentState.plainTextBuilder += "</li><li>";
+        if (currentState.currentListTag == "ol") {
+          currentState.indexOfCurrent += 1;
+        }
+      }
+      else {
+        currentState.activeList = true;
+        currentState = Article.findCorrectOpenTag(markdownText, currentState.indexOfCurrent+1, currentState);
+        if (currentState.currentListTag == "ol") {
+          currentState.indexOfCurrent += 1;
+        }
+      }
+    }
+    else {
+      if (currentState.activeList) {
+        currentState = Article.findCorrectCloseTag(currentState);
+        currentState.activeList = false;
+        currentState.nobreak = true;
+      }
+    }
+    return currentState;
+  };
+
+  Article.findHeaderSize = function(markdownText, currentState) {
+    while (markdownText[currentState.indexOfCurrent] === '#') {
+      currentState.headerSize += 1;
+      currentState.indexOfCurrent += 1;
+    }
+    return currentState;
+  };
+
+  Article.addHeaderTag = function(currentState) {
+    var headerTag;
+    var closingTag;
+    switch (parseInt(currentState.headerSize)) {
+      case 1:
+        headerTag = "<h1>";
+        closingTag = "</h1>";
+        break;
+      case 2:
+        headerTag = "<h2>";
+        closingTag = "</h2>";
+        break;
+      case 3:
+        headerTag = "<h3>";
+        closingTag = "</h3>";
+        break;
+      case 4:
+        headerTag = "<h4>";
+        closingTag = "</h4>";
+        break;
+      case 5:
+        headerTag = "<h5>";
+        closingTag = "</h5>";
+        break;
+      case 6:
+        headerTag = "<h6>";
+        closingTag = "</h6>";
+        break;
+      default:
+        headerTag = "<h6>";
+        closingTag = "</h6>";
+        break;
+    }
+    currentState.plainTextBuilder += headerTag;
+    currentState.headingCloseTag = closingTag;
+    currentState.headerSize = 0;
+    return currentState;
+  };
 
   Article.handleNextCharacter = function(markdownText, currentState) {
     switch(markdownText[currentState.indexOfCurrent]) {
+    case '#':
+      currentState.currentHeader = true;
+      currentState = Article.findHeaderSize(markdownText, currentState);
+      currentState = Article.addHeaderTag(currentState);
+      break;
     case '-':
       switch (markdownText[currentState.indexOfCurrent + 1]) {
         case '-':
           if (markdownText[currentState.indexOfCurrent + 2] === '-') {
             currentState.indexOfCurrent += 2;
             currentState.plainTextBuilder += "<hr>";
+            currentState.nobreak = true;
           }
           break;
         default:
@@ -97,35 +187,25 @@
       if (currentState.indexOfCurrent == 0) {
         return currentState;
       }
+      if (currentState.currentHeader) {
+        currentState.currentHeader = false;
+        currentState.plainTextBuilder += currentState.headingCloseTag;
+        currentState.nobreak = true;
+      }
       if (markdownText[currentState.indexOfCurrent + 1] == '\n') {
         if (currentState.activeList) {
           currentState.activeList = false;
-          currentState.plainTextBuilder += Article.findCorrectCloseTag(currentState);
+          currentState = Article.findCorrectCloseTag(currentState);
         }
         currentState.plainTextBuilder += "</p><p>";
         currentState.indexOfCurrent += 1;
-
+        currentState = Article.checkForList(markdownText, currentState);
       }
       else {
-        currentState.plainTextBuilder += "<br>";
-        while (markdownText[currentState.indexOfCurrent + 1] === ' ') {
-          currentState.plainTextBuilder += markdownText[currentState.indexOfCurrent + 1];
-          currentState.indexOfCurrent += 1;
-        }
-        if (Article.isValidListItem(markdownText, currentState)) {
-          if (currentState.activeList) {
-            currentState.plainTextBuilder += "</li><li>";
-          }
-          else {
-            currentState.activeList = true;
-            currentState.plainTextBuilder += Article.findCorrectOpenTag(markdownText, currentState.indexOfCurrent+1, currentState);
-          }
-        }
-        else {
-          if (currentState.activeList) {
-            currentState.plainTextBuilder += Article.findCorrectCloseTag(currentState);
-            currentState.activeList = false;
-          }
+        currentState = Article.checkForList(markdownText, currentState);
+        if (!currentState.activeList && !currentState.nobreak) {
+          currentState.nobreak = false;
+          currentState.plainTextBuilder += "<br>";
         }
       }
       break;
@@ -164,6 +244,10 @@
     currentState.activeList = false;
     currentState.plainTextBuilder = "<p>";
     currentState.tokenStack = new Stack();
+    currentState.nobreak = false;
+    currentState.currentHeader = false;
+    currentState.headerSize = 0;
+    currentState.headingCloseTag = "";
 
     for (currentState.indexOfCurrent = 0; currentState.indexOfCurrent < markdownText.length; currentState.indexOfCurrent += 1) {
       currentState = Article.handleNextCharacter(markdownText, currentState);
@@ -171,7 +255,7 @@
 
     if (currentState.activeList) {
       currentState.activeList = false;
-      currentState.plainTextBuilder += Article.findCorrectCloseTag(currentState);
+      currentState = Article.findCorrectCloseTag(currentState);
     }
     currentState.plainTextBuilder += "</p>";
     console.log(currentState.plainTextBuilder);
@@ -263,5 +347,9 @@ Article.ready = function() {
     if(e.which == 13) {
       Article.comment.submitCommentIfValid($(this), e);
     }
+  });
+
+  $('.example-markdown-expand').on('click', function() {
+    $(this).closest('li').find('.example-markdown').fadeToggle();
   });
 }
