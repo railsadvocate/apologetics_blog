@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require stack
 //= require article
 
 $(document).on('turbolinks:load', function() {

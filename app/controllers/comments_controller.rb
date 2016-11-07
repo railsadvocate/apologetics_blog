@@ -23,6 +23,7 @@ class CommentsController < ApplicationController
     @article = Article.find(params[:article_id])
     @comment = Comment.find(params[:id])
     if !logged_in? || current_user.username != @comment.user.username
+      debugger
       flash[:danger] = "You must be logged in to perform that action"
       redirect_to articles_path
     else

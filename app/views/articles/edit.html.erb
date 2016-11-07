@@ -1,5 +1,13 @@
 <%= render 'shared/errors', obj: @article %>
-<div class='container articles articles-edit-pageContent'>
-  <h2 class='page-header col-md-offset-1'>Edit existing article</h1>
-  <%= render 'form', :type => 'Edit' %>
+<div class='container articles articles-new-pageContent'>
+  <div class='row'>
+    <div class='col-sm-8'>
+      <h2 class='page-header col-sm-offset-1'>Edit article</h2>
+      <%= render 'form', type: 'Edit' %>
+    </div>
+    <div class='col-sm-4'>
+      <h2 class='page-header'>Markdown guide</h2>
+      <%= render 'markdown-guide' %>
+    </div>
+  </div>
 </div>

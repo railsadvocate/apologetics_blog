@@ -1,31 +1,28 @@
 <div class='container articles articles-show-pageContent'>
   <div class='row'>
-    <div class='col-sm-10 col-sm-offset-1'>
-      <h2 class='page-header'>Showing selected article</h2>
-
-      <div class='panel panel-info'>
-        <div class="panel-heading articles-show-articleTitle">
-          <%= @article.title %>
-        </div>
-        <div class="panel-body">
-          <article class="articles-show-articleBody center-in-block">
-            <% if @article.user %>
-              Created by:<br />
-              <%= link_to gravatar_for(@article.user), user_path(@article.user) %><br />
-              <%= link_to @article.user.username, user_path(@article.user) %><br/>
-              <hr />
-            <% end %>
-            <div id='articles-show-articleBody'>
-                <%= @article.description %>
-            </div>
-          </article>
-        </div>
-        <div class="panel-footer articles-show-actionButtonInFooter">
-          <%= link_to '<button class="btn btn-primary">Edit this article</button>'.html_safe, edit_article_path(@article) if logged_in? && current_user == @article.user %>
-          <%= link_to '<button class="btn btn-warning">Save this article</button>'.html_safe %>
-        </div>
+    <div class='col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 articles-show-article'>
+      <h2 class='page-header'>
+        <%= @article.title %>
+      </h2>
+      <article class="articles-show-articleBody">
+        <div id='articles-show-articleBody'><%= @article.description %></div>
+        <hr>
+      </article>
+      <div class="articles-show-articleActionButtons">
+        <%= link_to '<button class="btn btn-primary">Edit</button>'.html_safe, edit_article_path(@article) if logged_in? && current_user == @article.user %>
+        <%= link_to '<button class="btn btn-warning">Save</button>'.html_safe %>
       </div>
+      <div class="articles-show-articleFooter">
+        <small>
+          <strong>Author:</strong> <%= link_to @article.user.username, user_path(@article) if @article.user && @article.user.id %><br  />
+          <strong>Created:</strong> <%= time_ago_in_words(@article.created_at) %> ago<br  />
+          <strong>Last updated:</strong> <%= time_ago_in_words(@article.updated_at) %> ago.
+        </small>
+      </div>
+
+      <br>
       <%= render 'back_to_articles_link' %>
+      <br>
     </div>
   </div>
 </div>
