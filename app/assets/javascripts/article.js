@@ -350,6 +350,6 @@ Article.ready = function() {
   });
 
   $('.example-markdown-expand').on('click', function() {
-    $(this).closest('li').find('.example-markdown').fadeToggle();
+    $(this).closest('.markdown-item').find('.example-markdown').fadeToggle();
   });
 }

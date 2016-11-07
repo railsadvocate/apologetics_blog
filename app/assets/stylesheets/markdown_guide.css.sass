@@ -6,3 +6,45 @@
   ul
     margin: 0
     padding-left: 1em
+
+
+.example-markdown-expand
+  color: white
+  cursor: pointer
+  border: 1px solid $fourth-color
+  width: 100px
+  padding: .5em
+  text-align: center
+  margin-left: 1em
+  margin-bottom: 1em
+  margin-top: 1em
+  background-color: $fourth-color
+  transition: box-shadow .2s
+  transition: color .2s
+  @media screen and (max-width: 400px)
+    width: 100%
+    margin: 1em 0
+  &::before
+    font-family: "Glyphicons Halflings"
+    position: relative
+    top: 2px
+    content: "\e092"
+  &:hover
+    background-color: #fff
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4)
+    color: #337AB7
+
+.example-markdown
+  width: 100%
+  display: none
+  border: 1px solid #BBB
+  padding: .5em
+  margin-top: 1em
+  margin-bottom: 1em
+  background-color: #FFFFDD
+  hr
+    border-color: #000
+  ol
+    padding-left: 1em
+
+
