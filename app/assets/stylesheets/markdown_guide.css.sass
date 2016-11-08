@@ -1,7 +1,9 @@
 .markdown-guide
-  background-color: #ffff99
+  background-color: rgb(108, 122, 125)
   padding: 1em
   margin: .1em
+  border: 1px solid #555
+  border-radius: 3px 50px 3px 50px
 
   ul
     margin: 0
@@ -9,34 +11,16 @@
 
 
 .example-markdown-expand
-  color: white
   cursor: pointer
-  border: 1px solid $fourth-color
-  width: 100px
-  padding: .5em
-  text-align: center
-  margin-left: 1em
-  margin-bottom: 1em
-  margin-top: 1em
-  background-color: $fourth-color
-  transition: box-shadow .2s
-  transition: color .2s
-  @media screen and (max-width: 400px)
-    width: 100%
-    margin: 1em 0
-  &::before
-    font-family: "Glyphicons Halflings"
-    position: relative
-    top: 2px
-    content: "\e092"
-  &:hover
-    background-color: #fff
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4)
-    color: #337AB7
+  width: 100%
+  left: 50%
+  color: white
+  > span
+    transition: transform .5s
 
 .example-markdown
-  width: 100%
   display: none
+  width: 100%
   border: 1px solid #BBB
   padding: .5em
   margin-top: 1em

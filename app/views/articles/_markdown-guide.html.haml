@@ -1,26 +1,26 @@
 .row.markdown-guide
   %main
     .markdown-item
-      %h4 Bolding text
-      .example-markdown-expand
-        example
+      %h4.example-markdown-expand
+        %span.glyphicon.glyphicon-arrow-right
+        Bold Text
       .example-markdown
-        %h4 Example: Bold
-        %code
-          **bolded text**
-          %br
-          __also bolded__
-          %br
+        %h4 Input:
+        %pre
+          %code
+            :preserve
+              **bolded text**
+              __also bolded__
         %h4 output:
         %strong bolded text
         %br
         %strong also bolded
     .markdown-item
-      %h4 Italics
-      .example-markdown-expand
-        example
+      %h4.example-markdown-expand
+        %span.glyphicon.glyphicon-arrow-right
+        Italicize Text
       .example-markdown
-        %h4 Example: Italics
+        %h4 Input:
         %pre
           %code
             :preserve
@@ -31,22 +31,22 @@
         %br
         %em also italicized
     .markdown-item
-      %h4 Horizontal line
-      .example-markdown-expand
-        example
+      %h4.example-markdown-expand
+        %span.glyphicon.glyphicon-arrow-right
+        Horizontal line
       .example-markdown
-        %h4 Example: horizontal line
+        %h4 Input:
         %pre
           %code
             &#8208&#8208&#8208
         %h4 output:
         %hr
     .markdown-item
-      %h4 Lists
-      .example-markdown-expand
-        example
+      %h4.example-markdown-expand
+        %span.glyphicon.glyphicon-arrow-right
+        Lists
       .example-markdown
-        %h4 Example: Unordered list
+        %h4 Input
         %pre
           %code
             :preserve
@@ -56,7 +56,7 @@
         %ul
           %li bullet item 1
           %li bullet item 2
-        %h4 Example: Ordered list
+        %h4 Input
         %pre
           %code
             :preserve
@@ -67,11 +67,11 @@
           %li bullet item 1
           %li bullet item 2
     .markdown-item
-      %h4 Headers
-      .example-markdown-expand
-        example
+      %h4.example-markdown-expand
+        %span.glyphicon.glyphicon-arrow-right
+        Headers
       .example-markdown
-        %h4 Example: Headers
+        %h4 Input:
         %pre
           %code
             :preserve
@@ -82,9 +82,9 @@
               ##### header 5
               ###### header 6
         %h4 output:
-        %h1 Header 1
-        %h2 Header 2
-        %h3 Header 3
-        %h4 Header 4
-        %h5 Header 5
-        %h6 Header 6
+        %h1 header 1
+        %h2 header 2
+        %h3 header 3
+        %h4 header 4
+        %h5 header 5
+        %h6 header 6

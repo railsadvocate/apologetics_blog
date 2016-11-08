@@ -2,6 +2,8 @@
   var $badge;
   var numComments;
 
+  Article.rotatedDegrees = 0;
+
   Article.searchForEndOfString = function(currentState, markdownText, pattern, patternTerminator) {
     endOfString = false;
     var pattern;
@@ -162,8 +164,16 @@
     return currentState;
   };
 
+  Article.scanHyperlinkText = function(markdownText, currentState) {
+    
+  };
+
   Article.handleNextCharacter = function(markdownText, currentState) {
     switch(markdownText[currentState.indexOfCurrent]) {
+    case '[':
+      currentState.indexOfCurrent += 1;
+      currentState = Article.scanHyperlinkText(markdownText, currentState);
+      break;
     case '#':
       currentState.currentHeader = true;
       currentState = Article.findHeaderSize(markdownText, currentState);
@@ -248,6 +258,7 @@
     currentState.currentHeader = false;
     currentState.headerSize = 0;
     currentState.headingCloseTag = "";
+    currentState.hyperlinkText = "";
 
     for (currentState.indexOfCurrent = 0; currentState.indexOfCurrent < markdownText.length; currentState.indexOfCurrent += 1) {
       currentState = Article.handleNextCharacter(markdownText, currentState);
@@ -317,7 +328,7 @@ Article.ready = function() {
     $(this).closest('article').find('.article-comments-body').toggle(500);
   });
 
-  $('.submit-updated-article-comment').on('click', function(e) {
+  $(".submit-updated-article-comment").on('click', function(e) {
     Article.comment.submitCommentIfValid($(this).closest('.modal-content').find('textarea'), e);
   });
 
@@ -349,7 +360,31 @@ Article.ready = function() {
     }
   });
 
+  Article.getRotationDegrees = function(obj) {
+    var matrix = obj.css("-webkit-transform") ||
+      obj.css("-moz-transform")    ||
+      obj.css("-ms-transform")     ||
+      obj.css("-o-transform")      ||
+      obj.css("transform");
+    if(matrix !== 'none') {
+      var values = matrix.split('(')[1].split(')')[0].split(',');
+      var a = values[0];
+      var b = values[1];
+      var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+    } else { var angle = 0; }
+    return (angle < 0) ? angle + 360 : angle;
+  };
+
   $('.example-markdown-expand').on('click', function() {
-    $(this).closest('.markdown-item').find('.example-markdown').fadeToggle();
+    var degreesRotated = Article.getRotationDegrees($(this).find('span'));
+    $(this).closest('.markdown-item').find('.example-markdown').fadeToggle(300);
+    if (degreesRotated === 90) {
+      $(this).find('span').css("transform", "rotate(0deg)");
+      Article.rotatedDegrees -= 90;
+    }
+    else {
+      $(this).find('span').css("transform", "rotate(90deg)");
+      Article.rotatedDegrees =+ 90;
+    }
   });
-}
+};
