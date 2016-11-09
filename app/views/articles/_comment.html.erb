@@ -5,7 +5,7 @@
   <span class='glyphicon glyphicon-pencil edit-article-comment' data-toggle='modal' data-target='#editCommentModal-<%= comment.id %>'></span>
   <% end %>
   <span class='article-comment-text'>
-    <span class='article-comment-text-content'><%= comment.text %></span><br />
+    <span class='article-comment-text-content'><%= sanitize comment.text, tags: %w() %></span><br />
      <%= link_to comment.user.username, user_path(comment.user) %> |
      <small><%= time_ago_in_words(comment.updated_at) %> ago</small>
    </span>

@@ -19,5 +19,7 @@
   }
 
   $articleComments.hide().append("<%= j render 'articles/comment', article: @article, comment: @comment %>").fadeIn();
+  $article.find($('.articles-addComment')).fadeOut();
+  $article.find($('textarea')).blur();
 
 })(jQuery);

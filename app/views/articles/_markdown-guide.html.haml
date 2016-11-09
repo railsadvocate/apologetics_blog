@@ -1,13 +1,90 @@
 .row.markdown-guide
   %main
-    %ul
-      %li
-        To
-        %strong bold
-        your text, place two asteriks or two underscores on each side of the text you want to bold
-      %li
-        To
-        %em italicize
-        you text, place a single underscore or a single asterik on each side of the text you want to italicize
-      %li
-        To create a horizontal line to divide your article into sections, place three dashes on an empty line
+    .markdown-item
+      %h4.example-markdown-expand
+        %span.glyphicon.glyphicon-arrow-right
+        Bold Text
+      .example-markdown
+        %h4 Input:
+        %pre
+          %code
+            :preserve
+              **bolded text**
+              __also bolded__
+        %h4 output:
+        %strong bolded text
+        %br
+        %strong also bolded
+    .markdown-item
+      %h4.example-markdown-expand
+        %span.glyphicon.glyphicon-arrow-right
+        Italicize Text
+      .example-markdown
+        %h4 Input:
+        %pre
+          %code
+            :preserve
+              *italicized text*
+              _also italicized_
+        %h4 output:
+        %em italicized text
+        %br
+        %em also italicized
+    .markdown-item
+      %h4.example-markdown-expand
+        %span.glyphicon.glyphicon-arrow-right
+        Horizontal line
+      .example-markdown
+        %h4 Input:
+        %pre
+          %code
+            &#8208&#8208&#8208
+        %h4 output:
+        %hr
+    .markdown-item
+      %h4.example-markdown-expand
+        %span.glyphicon.glyphicon-arrow-right
+        Lists
+      .example-markdown
+        %h4 Input
+        %pre
+          %code
+            :preserve
+              &#8208 bullet item 1
+              &#8208 bullet item 2
+        %h4 output:
+        %ul
+          %li bullet item 1
+          %li bullet item 2
+        %h4 Input
+        %pre
+          %code
+            :preserve
+              1 bullet item 1
+              2 bullet item 2
+        %h4 output:
+        %ol
+          %li bullet item 1
+          %li bullet item 2
+    .markdown-item
+      %h4.example-markdown-expand
+        %span.glyphicon.glyphicon-arrow-right
+        Headers
+      .example-markdown
+        %h4 Input:
+        %pre
+          %code
+            :preserve
+              # header 1
+              ## header 2
+              ### header 3
+              #### header 4
+              ##### header 5
+              ###### header 6
+        %h4 output:
+        %h1 header 1
+        %h2 header 2
+        %h3 header 3
+        %h4 header 4
+        %h5 header 5
+        %h6 header 6
