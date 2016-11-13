@@ -1,0 +1,13 @@
+.container.categories-index-pageContent
+  .row
+    .col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4
+      %h2.page-header
+        Listing all categories
+    .col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4
+      %ul
+        = will_paginate
+        - @categories.each do |category|
+          .well.categories-index-well
+            %li
+              = link_to "#{category.name}", category_path(category)
+        = will_paginate
