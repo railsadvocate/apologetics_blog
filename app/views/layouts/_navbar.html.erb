@@ -16,6 +16,20 @@
       <ul class="nav navbar-nav">
         <li><%= link_to 'Articles<span class="sr-only">(current)</span>'.html_safe, articles_path %></li>
         <li><%= link_to 'Users', users_path %></li>
+        <li class="dropdown">
+          <%= link_to 'Categories<span class="caret"></span>'.html_safe, root_path, class: 'dropdown-toggle', data: {toggle: 'dropdown' }, role: 'button', aria: {haspopup: 'true', expanded: 'false'} %>
+          <ul class="dropdown-menu navigation-categories">
+            <li><%= link_to 'All categories', categories_path %></li>
+            <li role='separator' class="divider"></li>
+            <% @categories.each do |category| %>
+                <li><%= link_to category.name, category_path(category) %></li>
+            <% end %>
+            <% if logged_in? and current_user.admin? %>
+              <li role="separator" class="divider"></li>
+              <li><%= link_to 'Create new category', new_category_path %></li>
+            <% end %>
+          </ul>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
@@ -26,6 +40,6 @@
           <li><%= link_to 'Log in', login_path %></li>
         <% end %>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
