@@ -28,6 +28,6 @@ $(document).on('turbolinks:load', function() {
 
 globalListeners = function() {
   $(".exit-flash-message").click(function() {
-    $(".flash-message-wrapper, .form-error-messages").css("display", "none");
+    $(".flash-message-wrapper, .form-error-messages").fadeOut();
   });
 }
