@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b3be487c-dd07-4ae7-a323-11229c46c28f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+<<<<<<< HEAD
+=======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/content_partials/navigation.sass" afterPath="$PROJECT_DIR$/app/assets/stylesheets/content_partials/navigation.sass" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/categories_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/categories_controller.rb" />
@@ -13,6 +15,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/create_categories_test.rb" afterPath="$PROJECT_DIR$/test/integration/create_categories_test.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/list_categories_test.rb" afterPath="$PROJECT_DIR$/test/integration/list_categories_test.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test_helper.rb" afterPath="$PROJECT_DIR$/test/test_helper.rb" />
+>>>>>>> c19dc1123ea4008eaf29c947e61ff7e89aa5f98d
     </list>
     <ignored path="apologetics_blog.iws" />
     <ignored path=".idea/workspace.xml" />

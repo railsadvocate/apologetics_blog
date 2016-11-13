@@ -1,0 +1,17 @@
+= render 'shared/errors', obj: @category
+.container
+  .row
+    .col-sm-8.col-xs-offset-1.col-sm-offset-2.col-xs-10
+      .row
+        %h2.page-header
+          Create new category
+      .row
+        = form_for @category do |f|
+          %div
+            = f.label :name
+            = f.text_field :name, class: 'form-control col-sm-6'
+          .categories-new-submit
+            = f.submit 'Submit', :class => 'btn btn-primary btn-lg'
+
+      .exit-form-wrapper
+        = link_to '[ Exit and return to categories listings ]', categories_path

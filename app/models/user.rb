@@ -14,5 +14,9 @@ class User < ActiveRecord::Base
             :uniqueness => {case_sensitive: false},
             :format => {:with => VALID_EMAIL_REGEX}
 
+  def admin?
+    self.admin
+  end
+
   has_secure_password
 end

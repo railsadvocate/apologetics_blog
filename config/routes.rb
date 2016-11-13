@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :categories, except: [:destroy]
+
   get 'sessions/new'
 
   root 'pages#home'
@@ -12,6 +14,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   resources :users, execept: [:new]
+
   resources :articles do
     resources :comments, except: [:index, :new, :show, :edit]
   end
