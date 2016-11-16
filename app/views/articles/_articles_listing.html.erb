@@ -44,12 +44,12 @@
             </div>
           <% end %>
         </div>
+        <% end %>
         <div class="panel-footer articles-index-articleActions">
           <%= link_to "<button class='btn btn-sm btn-primary'>View</button>".html_safe, article_path(a) %>
           <%= link_to "<button class='btn btn-sm btn-primary'>Edit</button>".html_safe, edit_article_path(a) if logged_in? && current_user == a.user %>
           <%= link_to "<button class='btn btn-sm btn-danger'>Delete</button>".html_safe, article_path(a), :method => 'delete', remote: true, class: 'delete_article' if logged_in? && current_user == a.user %>
         </div>
-        <% end %>
       </div>
     </div>
   </article>
